@@ -1,7 +1,52 @@
 package com.myweather.db;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 /**
  * Created by uu on 2015/11/25.
  */
-public class MyweatherOpenHelper {
+public class MyweatherOpenHelper extends SQLiteOpenHelper{
+    /**
+     * Province建表语句
+     */
+    public static final String CREATE_PROVINCE ="create table Province ("
+            +"id integer primary key autoincrement,"
+            +"province_name text,"
+            +"province_code text)";
+    /**
+     * city
+     */
+    public static final String CREATE_CITY ="create table City ("
+            +"id integer primary key autoincrement,"
+            +"city_name text,"
+            +"city_code text,"
+            +"procince_id integer)";
+    /**
+     * County
+     */
+    public static final String CREATE_County ="create table County ("
+            +"id integer primary key autoincrement,"
+            +"county_name text,"
+            +"county_code text,"
+            +"city_id integer)";
+    public MyweatherOpenHelper(Context context,String name,SQLiteDatabase.CursorFactory factory,int version) {
+        super(context,name,factory,version);
+
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_PROVINCE);
+        db.execSQL(CREATE_CITY);
+        db.execSQL(CREATE_County);
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
 }
